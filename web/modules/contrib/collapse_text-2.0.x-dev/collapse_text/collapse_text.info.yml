@@ -1,0 +1,13 @@
+name: Collapse Text
+type: module
+description: "Input filter allowing text sections to become collapsible."
+configure: filter.admin_overview
+package: "Input filters"
+core_version_requirement: ^8.8 || ^9 || ^10
+dependencies:
+  - drupal:filter
+
+# Information added by Drupal.org packaging script on 2021-10-31
+version: '2.0.0+1-dev'
+project: 'collapse_text'
+datestamp: 1635654801
