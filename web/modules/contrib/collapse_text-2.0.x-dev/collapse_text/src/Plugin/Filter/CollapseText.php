@@ -6,7 +6,7 @@ use Drupal\filter\FilterProcessResult;
 use Drupal\filter\Plugin\FilterBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Component\Utility\Html;
-
+use Drupal\Core\Render\Markup;
 // Set default title.
 define('COLLAPSE_TEXT_DEFAULT_TITLE', t('Click here to expand or collapse this section'));
 
@@ -17,7 +17,7 @@ define('COLLAPSE_TEXT_DEFAULT_TITLE', t('Click here to expand or collapse this s
  *   id = "filter_collapse_text",
  *   title = @Translation("Collapsible text blocks"),
  *   description = @Translation("Allows the creation of collapsing blocks of text. This filter must be after the 'Limit allowed HTML tags' filter, and should be after the 'Convert line breaks into HTML' filter."),
- *   type = Drupal\filter\Plugin\FilterInterface::TYPE_MARKUP_LANGUAGE,
+ *   type = Drupal\filter\Plugin\FilterInterface::TYPE_TRANSFORM_IRREVERSIBLE,
  * )
  */
 class CollapseText extends FilterBase {
@@ -248,7 +248,7 @@ class CollapseText extends FilterBase {
     if (preg_match('/\S/', $item)) {
       return [
         '#type'   => 'markup',
-        '#markup' => $item,
+        '#markup' => Markup::create($item),
         '#prefix' => '<div class="collapse-text-text">',
         '#suffix' => '</div>',
       ];

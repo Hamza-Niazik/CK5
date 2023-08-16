@@ -1,0 +1,9 @@
+{
+    "name": "drupal/ckeditor_templates",
+    "type": "drupal-module",
+    "description": "This module integrates the Ckeditor templates plugin.",
+    "homepage": "https://drupal.org/project/ckeditor_templates",
+    "license": "GPL-2.0-or-later"
+
+}
+
