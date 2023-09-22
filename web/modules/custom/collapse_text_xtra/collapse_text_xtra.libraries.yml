@@ -1,0 +1,6 @@
+collapse_text_xtra:
+  js:
+    js/collapse_text_xtra.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal

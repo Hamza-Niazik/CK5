@@ -1,0 +1,25 @@
+uuid: b65b2537-b042-45b7-af27-ae5a611ddb37
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.media.full
+    - media.type.video
+  module:
+    - entity_embed
+    - media
+label: Video
+id: video
+type_id: entity
+type_settings:
+  entity_type: media
+  bundles:
+    - video
+  display_plugins:
+    - 'view_mode:media.full'
+  entity_browser: ''
+  entity_browser_settings: {  }
+icon:
+  uri: 'public://embed_buttons/video_0.png'
+  data: iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAB7UlEQVRYhe2XsWsUQRTGf/NukfMIwVqOEK4IW0gUm2CTLLvjP5HYWQshYG0htmJnGcTGxs52PY9gwEaCJCDEQI7YWGhCSM7kdG8sZk4O9SQzxmyK++CxswzfzMd7896bUVonQokodfORgHMhIOoP8rw1ZYy5A0wDY0AVqAEX3DgaMOF38T1n3wfsCOi6bwc4ANZE5HGazr4HwGXBPHAMmDOyY2Be60RQSsVnvPlPESIqrgD3gBtDg/T/UDHGxvG6J3EB2DslEdcANvBwndaJiMgE0PThDbENAcZ9Zafp7Md6/fJN4C72lIdiXLAp5404nuppnTxUSs0A64ECxgSb48HIsrl3tdrFGeBRAL2qgAKPiqh1Uhk2l+et1BizDNRPuFzvTxUtGFk29zKKoqvAsxNS5Fz0gh6n5IU8byXGmCd4hCDCptE/HcTV1TfVTufrfWDJk9qNsJ0qWECet6aNMU+BKwH0owjbIi/5Mjc3t6Td3lkEHmBbdggOImDfl9VsrkwURbEMJIEb97EH8BqP+q2UugXs+nD+YisCvPWR7OLtHbIhWENESryQSFz6lazSaEyqRmNyfXu7/dwYlJv8gj2ch+7/G7ZgFQPuU7+4sz/fdXbo1vgMfAJ2gA/ACxF1O8uSVwBq9DQbCShbwA8/eS1hFb66zAAAAABJRU5ErkJggg==
+icon_uuid: null

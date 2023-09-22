@@ -1,0 +1,10 @@
+name: Collapse Text Xtra
+type: module
+description: This plugin module adds the collapse text icon and collapse all text links.
+core_version_requirement: ^9.3 || ^10
+package: CKEditor
+libraries:
+  - drupal.collapse_text_xtra
+dependencies:
+  - ckeditor5
+  - collapse_text

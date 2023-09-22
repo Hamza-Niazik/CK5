@@ -1,0 +1,23 @@
+uuid: a62b868d-1d22-4f1a-be9c-bd71bcea2d37
+langcode: en
+status: true
+dependencies:
+  config:
+    - media.type.audio
+  module:
+    - entity_embed
+    - media
+label: Audio
+id: audio
+type_id: entity
+type_settings:
+  entity_type: media
+  bundles:
+    - audio
+  display_plugins: {  }
+  entity_browser: ''
+  entity_browser_settings: {  }
+icon:
+  uri: 'public://embed_buttons/audio.png'
+  data: iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAEFklEQVRYhcWXPUibXxTGf/fFGFERrNavxUVREIpDbQvSKViq4lRLl0IXodHFoUOXLqU4iDi5SLGLkyDdgqBSrfjRqdJJRbSF2kVIBfGD15jc5z/k/8YkmkSLtg8ceJNz7n2e956TnHONtVb8Qzj/khwgzxhz6WApfljemuTP3nOy/zIwmVKQvulN+TOmINviZP+vX784OjrKul4Sx8fHF/slyVqrq8Jaq9HRUfl8PgUCgayxwWBQBQUFmp2dPcdFps2TLR3RaFSvX7+WMUaA6urqMoq01qq3t1eAqqurFQ6HUwUkk6QTp4uw1uro6EjPnj0TkDBPQHK867qam5uT67ra399XXV2dAL18+TIljmyk6ba7u6vW1tYUck9AeuzAwIAA9fT0yFqr6elpAcrLy9PGxsbVBWxsbCTe4jICZmZm5DiOjDFaWFiQtVaBQECAgsHgmYCL8p6ex4WFBZWVlV1InpwC13X1+fNnua4ra61evHghQA8fPpS1VlNTUwJUUlKi4+Pjsxr48uWL7ty5o8bGxnPW0NAgv9+fkTz5BLxj7+/vl7VW29vb8vl8AvTt2zednp6qqqpKgEKh0FkK3r59m5Ugl3kCQqGQAPn9fu3s7Mhaq46ODgF68+ZNyqm8evVK1lo5uf6xLgtjDO3t7dy9e5eTkxMmJiYA6OrqAmB+fh5jDA8ePABgdXUVuOZm5DgOT58+TRACtLS0ALC+vk4sFqOhoQGAHz9+xNdcx9t7kERzczMAW1tbANTU1GCMYW9vD9d1qaysBOD3799xAddJDlBUVATAwcEBAAUFBThOnCYajeLz+RLP1yrAQzgcBqC8vByAw8NDYrEYjuOQn5+P67oJYQDOVXp3Nnj7rKysANDU1ASc5bqqqgq/38/Ozg4AFRUVcQHXVQOSUqr/8ePHACwvLwPQ3NyMMYa1tTUA6uvr4wIAiouLr0XE+Pg4P3/+5Pbt2zx58gSAjx8/AvDo0SMAFhcXAbh37x7w/0gWDAa5detWIj/pGBsbS/xuM8EYQ01NDeXl5QwODlJUVMTS0hJfv37F5/PR3d3N4eEhnz59AqCtrS2etgsbeVov2N/fV2dnZ85eYK1VNBqVtVanp6eJzvn8+XNZa/X+/XsBqq2tVTQavdo8EIlE1NfXl1OAZx8+fBCgwsJCbW9vKxKJqLGxUYDevXv3Z/NALBbT0NCQHMfJ2Y5DoZDKyso0Ojoqa61GRkYEqLS0VOFw+M8EeDY5OanCwsKsApLTsbm5qZKSEgEaHh5OnYhy1UCmulhZWVFlZaUA1dfXZ433Rrj79+8rEomk+DLWwEU1kf7d1taWAoGABgYGssZOTk6qvb1d379/P+fPeDH5W7jS1ewm4EDuW9BNwOPMU9oVKhNu4q4oif8AIaga0HP2rBAAAAAASUVORK5CYII=
+icon_uuid: null

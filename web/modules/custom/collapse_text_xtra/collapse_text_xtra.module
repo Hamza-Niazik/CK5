@@ -1,0 +1,35 @@
+<?php
+
+/**
+ * @file
+ * Contains collapse_text_xtra.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ *
+ * @param $route_name
+ * @param \Drupal\Core\Routing\RouteMatchInterface $route_match
+ *
+ * @return string
+ */
+function collapse_text_xtra_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help.
+    case 'help.page.collapse_text_xtra':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('This plugin module adds the collapse all icon and collapse all text link to CKEditor in Drupal 8') . '</p>';
+      return $output;
+    default:
+  }
+}
+
+/**
+ * Implements hook_page_attachments().
+ */
+function collapse_text_xtra_page_attachments(array &$attachments) {
+  $attachments['#attached']['library'][] = 'collapse_text_xtra/collapse_text_xtra';
+}

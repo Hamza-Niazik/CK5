@@ -12,18 +12,78 @@
         {
             "type": "composer",
             "url": "https://packages.drupal.org/8"
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "ckeditor-plugin/collapsetext",
+                "version": "1.0.0",
+                "type": "drupal-library",
+                "extra": {
+                    "installer-name": "collapsetext"
+                },
+                "dist": {
+                    "url": "https://github.com/henokmikre/collapsetext/archive/1.0.0.zip",
+                    "type": "zip"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "ckeditor-plugin/link",
+                "version": "4.23.0",
+                "type": "drupal-library",
+                "extra": {
+                    "installer-name": "link"
+                },
+                "dist": {
+                    "url": "https://download.ckeditor.com/link/releases/link_4.14.1.zip",
+                    "type": "zip"
+                },
+                "require": {
+                    "composer/installers": "^2.0"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "ckeditor-plugin/fakeobjects",
+                "version": "4.23.0",
+                "type": "drupal-library",
+                "extra": {
+                    "installer-name": "fakeobjects"
+                },
+                "dist": {
+                    "url": "https://download.ckeditor.com/fakeobjects/releases/fakeobjects_4.12.1.zip",
+                    "type": "zip"
+                }
+            }
         }
     ],
     "require": {
+        "ckeditor-plugin/collapsetext": "^1.0",
+        "ckeditor-plugin/fakeobjects": "^4.23",
+        "ckeditor-plugin/link": "^4.23",
         "composer/installers": "^2.0",
         "cweagans/composer-patches": "^1.7",
         "drupal/admin_toolbar": "^3.4",
+        "drupal/anchor_link": "3.0.x-dev",
+        "drupal/cancel_button": "^1.4",
         "drupal/ckeditor": "^1.0",
         "drupal/core-composer-scaffold": "^10.1",
         "drupal/core-project-message": "^10.1",
         "drupal/core-recommended": "^10.1",
         "drupal/embed": "^1.6",
+        "drupal/entity_browser": "^2.9",
         "drupal/entity_embed": "^1.4",
+        "drupal/field_validation": "^1.1",
+        "drupal/fullcalendar_view": "^5.1",
+        "drupal/inline_entity_form": "^1.0@RC",
+        "drupal/libraries": "^4.0",
+        "drupal/linkit": "^6.1",
+        "drupal/media_entity_browser": "^2.0@alpha",
         "drush/drush": "^12.1"
     },
     "conflict": {
@@ -49,6 +109,9 @@
             },
             "drupal/entity_embed": {
                 "entity_embed": "https://www.drupal.org/files/issues/2023-06-19/entity_embed-3272732-93.patch"
+            },
+            "drupal/anchor_link": {
+                "Start a 3.0.x branch for CKEditor Anchor Link for semantic versioning and better integration with Drupal 10, CKEditor 5, and LinkIt": "https://www.drupal.org/files/issues/2023-08-22/anchor_link-ckeditor5-compatibility-3206676-98.patch"
             }
         },
         "drupal-scaffold": {

@@ -1,0 +1,6 @@
+uspto_media.styles:
+  js:
+    js/uspto_media.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
