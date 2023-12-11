@@ -5,11 +5,13 @@
  * Contains uspto_media.module.
  */
 
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\file\Entity\File;
 use Drupal\file\FileInterface;
 use Drupal\media\Entity\Media;
-
+use Drupal\node\Entity\Node;
+use Drupal\node\NodeInterface;
 /**
  * Implements template_preprocess_views_view().
  *
@@ -69,9 +71,7 @@ function uspto_media_file_validate(FileInterface $file) {
  * @return array
  */
 function _uspto_media_file_upload_path_validate(FileInterface $file) {
-
-  // PHP Function dirname strips '/' so we need two file_exists checks.
-  if (file_exists($file->getFileUri())) {
+  if (file_exists($file->destination  . $file->getFilename())) {
     return [t('The specified file @filename could not be uploaded. @filename already exists in the system. Please rename the file or edit the existing file in order to replace it in the system.', ['@filename' => $file->getFilename()])];
   }
   // No filename collisions.
@@ -139,4 +139,32 @@ function _uspto_media_validate_document_upload(FileInterface $file) {
     $error = [t('The specified file @filename could not be uploaded. @filename already exists in the system. Please rename the file or edit the existing file in order to replace it in the system.', ['@filename' => $file->getFilename()])];
   }
   return $error;
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function uspto_media_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // Check if the form is the one you want to alter.
+  if ($form_id == 'simple_media_bulk_upload_form') {
+    // Add a custom validation function to the form.
+    $form['#validate'][] = 'uspto_media_form_validation';
+  }
+}
+
+/**
+ * Custom validation function to prevent uploading files with the same name.
+ */
+function uspto_media_form_validation(array &$form, FormStateInterface $form_state) {
+  $uploads = $form_state->getValue(['dropzone', 'uploaded_files']);
+
+  foreach ($uploads as $upload) {
+    // Check if the file with the same name already exists.
+    $existingFiles = \Drupal::entityTypeManager()->getStorage('file')->loadByProperties(['filename' => $upload['filename']]);
+    if (!empty($existingFiles)) {
+      $form_state->setErrorByName('dropzone', t('File with the name %name already exists. Please choose a different file.', [
+        '%name' => $upload['filename'],
+      ]));
+    }
+  }
 }

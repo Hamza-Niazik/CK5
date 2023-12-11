@@ -1,0 +1,12 @@
+diff --git a/src/Form/BulkUploadForm.php b/src/Form/BulkUploadForm.php
+index 289bbf2..8e59602 100644
+--- a/src/Form/BulkUploadForm.php
++++ b/src/Form/BulkUploadForm.php
+@@ -213,6 +213,7 @@ class BulkUploadForm extends FormBase {
+       $file = $this->entityTypeManager->getStorage('file')->create([
+         'uri' => $upload['path'],
+         'uid' => $this->currentUser()->id(),
++        'filename' => $upload['filename'],
+       ]);
+       $file->setTemporary();
+       $file->save();

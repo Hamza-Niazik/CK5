@@ -1,0 +1,6 @@
+cke5office:
+  js:
+    js/build/office.js: { preprocess: true, minified: true }
+  dependencies:
+    - core/ckeditor5
+

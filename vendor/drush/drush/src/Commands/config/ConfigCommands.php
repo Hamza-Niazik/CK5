@@ -166,14 +166,14 @@ final class ConfigCommands extends DrushCommands implements StdinAwareInterface,
             $data = $this->stdin()->contents();
         }
 
-        // Special handling for empty array.
-        if ($data == '[]') {
-            $data = [];
-        }
-
         // Special handling for null.
         if (strtolower($data) == 'null') {
             $data = null;
+        }
+
+        // Special handling for empty array.
+        if ($data == '[]') {
+            $data = [];
         }
 
         if ($options['input-format'] === 'yaml') {
@@ -242,7 +242,7 @@ final class ConfigCommands extends DrushCommands implements StdinAwareInterface,
         if (!$options['bg']) {
             $redispatch_options = Drush::redispatchOptions() + ['strict' => 0, 'partial' => true, 'source' => $temp_dir];
             $self = $this->siteAliasManager()->getSelf();
-            $process = $this->processManager()->drush($self, 'config-import', [], $redispatch_options);
+            $process = $this->processManager()->drush($self, ConfigImportCommands::IMPORT, [], $redispatch_options);
             $process->mustRun($process->showRealtime());
         }
     }

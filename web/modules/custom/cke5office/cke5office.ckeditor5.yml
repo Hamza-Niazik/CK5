@@ -1,0 +1,8 @@
+cke5office_prod_office:
+  ckeditor5:
+    plugins:
+      - office.Cke5Office
+  drupal:
+    label: Office
+    library: cke5office/cke5office
+    elements: FALSE

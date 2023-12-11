@@ -60,31 +60,53 @@
                     "type": "zip"
                 }
             }
-        }
+        },
+        {
+          "type": "package",
+          "package": {
+              "name": "library-enyo/dropzone",
+              "version": "4.3.0",
+              "type": "drupal-library",
+              "source": {
+                  "url": "https://github.com/enyo/dropzone",
+                  "type": "git",
+                  "reference": "v4.3.0"
+              }
+          }
+      }
     ],
     "require": {
         "ckeditor-plugin/collapsetext": "^1.0",
         "ckeditor-plugin/fakeobjects": "^4.23",
         "ckeditor-plugin/link": "^4.23",
         "composer/installers": "^2.0",
-        "cweagans/composer-patches": "^1.7",
+        "cweagans/composer-patches": "^1.0",
         "drupal/admin_toolbar": "^3.4",
         "drupal/anchor_link": "3.0.x-dev",
         "drupal/cancel_button": "^1.4",
         "drupal/ckeditor": "^1.0",
+        "drupal/ckeditor_find": "^2.0@beta",
+        "drupal/ckeditor_pastefromword": "^2.0",
         "drupal/core-composer-scaffold": "^10.1",
         "drupal/core-project-message": "^10.1",
         "drupal/core-recommended": "^10.1",
-        "drupal/embed": "^1.6",
+        "drupal/disable_html5_validation": "^2.0",
+        "drupal/embed": "^1.7",
         "drupal/entity_browser": "^2.9",
-        "drupal/entity_embed": "^1.4",
+        "drupal/entity_embed": "^1.5",
+        "drupal/fakeobjects": "^1.2",
         "drupal/field_validation": "^1.1",
         "drupal/fullcalendar_view": "^5.1",
         "drupal/inline_entity_form": "^1.0@RC",
         "drupal/libraries": "^4.0",
-        "drupal/linkit": "^6.1",
+        "drupal/linkit": "6.1.0",
         "drupal/media_entity_browser": "^2.0@alpha",
-        "drush/drush": "^12.1"
+        "drupal/simple_media_bulk_upload": "^1.0",
+        "drupal/simple_sitemap": "^4.1",
+        "drupal/workbench": "^1.4",
+        "drupal/workflow": "^1.7",
+        "drush/drush": "^12.1",
+        "library-enyo/dropzone": "^4.3"
     },
     "conflict": {
         "drupal/drupal": "*"
@@ -104,14 +126,8 @@
     },
     "extra": {
         "patches": {
-            "drupal/embed": {
-                "CKEditor 5 compatibility": "https://www.drupal.org/files/issues/2023-03-30/fix_module_embed_compatibility_CKEditor_5.patch"
-            },
-            "drupal/entity_embed": {
-                "entity_embed": "https://www.drupal.org/files/issues/2023-06-19/entity_embed-3272732-93.patch"
-            },
-            "drupal/anchor_link": {
-                "Start a 3.0.x branch for CKEditor Anchor Link for semantic versioning and better integration with Drupal 10, CKEditor 5, and LinkIt": "https://www.drupal.org/files/issues/2023-08-22/anchor_link-ckeditor5-compatibility-3206676-98.patch"
+            "drupal/simple_media_bulk_upload": {
+                "Incorrect filename when uploading a duplicate": "https://www.drupal.org/files/issues/2023-12-01/simple_media_bulk_upload-resolve-incorrect-filename.patch"
             }
         },
         "drupal-scaffold": {

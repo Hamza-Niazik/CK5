@@ -23,13 +23,14 @@ export default class EntityEmbedEditing extends Plugin {
       drupalEntityLangCode: 'data-langcode',
       drupalEntityEntityType: 'data-entity-type',
       drupalEntityEntityUuid: 'data-entity-uuid',
+      drupalEntityViewMode: 'data-view-mode',
       drupalEntityEmbedButton: 'data-embed-button',
       drupalEntityEmbedDisplay: 'data-entity-embed-display',
       drupalEntityEmbedDisplaySettings: 'data-entity-embed-display-settings',
     };
     const options = this.editor.config.get('entityEmbed');
     if (!options) {
-      return;
+      throw new Error('Error on initializing entityEmbed plugin: entityEmbed config is required.');
     }
     this.options = options;
     this.labelError = Drupal.t('Preview failed');
@@ -72,33 +73,33 @@ export default class EntityEmbedEditing extends Plugin {
    */
   _defineConverters() {
     const {conversion} = this.editor;
+    const elementMapping = {
+      model: 'drupalEntity',
+      view: {
+        name: 'drupal-entity',
+      },
+    };
 
     conversion
       .for('upcast')
-      .elementToElement({
-        model: 'drupalEntity',
-        view: {
-          name: 'drupal-entity',
-        },
-      });
+      .elementToElement(elementMapping);
 
     conversion
       .for('dataDowncast')
-      .elementToElement({
-        model: 'drupalEntity',
-        view: {
-          name: 'drupal-entity',
-        },
-      });
+      .elementToElement(elementMapping);
 
     // Convert the <drupalEntity> model into an editable <drupal-entity> widget.
     conversion
       .for('editingDowncast')
       .elementToElement({
-        model: 'drupalEntity',
+        ...elementMapping,
         view: (modelElement, { writer }) => {
+          // Align classes should be applied to the wrapper element so the
+          // alignment is relative to the other editor contents, and not
+          // within the container.
+          const alignClass = modelElement.hasAttribute('dataAlign') ? ` align-${modelElement.getAttribute('dataAlign')}` : '';
           const container = writer.createContainerElement('figure', {
-            class: 'drupal-entity',
+            class: `drupal-entity${alignClass}`,
           });
           writer.setCustomProperty('drupalEntity', true, container);
 
@@ -120,7 +121,7 @@ export default class EntityEmbedEditing extends Plugin {
             if (drupalEntity.getAttribute('data-drupal-entity-preview') !== 'ready') {
               return;
             }
-            // Preview was ready meaning that a new preview can be loaded.
+            // Preview is ready meaning that a new preview can be loaded.
             // Change the attribute to loading to prepare for the loading of
             // the updated preview. Preview is kept intact so that it remains
             // interactable in the UI until the new preview has been rendered.
@@ -226,7 +227,7 @@ export default class EntityEmbedEditing extends Plugin {
    * Renders the model element.
    *
    * @param modelElement
-   *   The drupalMedia model element to be converted.
+   *   The drupalEntity model element to be converted.
    * @returns {*}
    *   The model element converted into HTML.
    *
@@ -241,6 +242,20 @@ export default class EntityEmbedEditing extends Plugin {
       // model element remains untouched and that the caption is not rendered
       // into the preview.
       const clonedModelElement = writer.cloneElement(modelElement, false);
+      // Remove attributes from the model element to ensure they are not
+      // downcast into the preview request.
+      // - The `linkHref` model attribute would downcast into a wrapping `<a>`
+      //    element, which the preview endpoint would not be able to handle.
+      // - The dataAlign attribute results in adding an alignment class that
+      //   does not work properly when applied to the preview. The alignment
+      //   class is instead added to the widget container element so alignment
+      //   is relative to the editor contents, and not the widget container.
+      const attributeIgnoreList = ['linkHref', 'dataAlign'];
+
+      attributeIgnoreList.forEach((attribute) => {
+        writer.removeAttribute(attribute, clonedModelElement);
+      });
+
       writer.append(clonedModelElement, modelDocumentFragment);
 
       return modelDocumentFragment;

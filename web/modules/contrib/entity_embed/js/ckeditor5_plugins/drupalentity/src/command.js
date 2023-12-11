@@ -9,26 +9,19 @@ export default class InsertEntityEmbedCommand extends Command {
     // Create object that contains supported data-attributes in view data by
     // flipping `EntityEmbedEditing.attrs` object (i.e. keys from object become
     // values and values from object become keys).
-    const dataAttributeMapping = Object.entries(entityEmbedEditing.attrs).reduce(
-      (result, [key, value]) => {
-        result[value] = key;
-        return result;
-      },
-      {},
+    const dataAttributeMapping = Object.fromEntries(
+      Object.entries(entityEmbedEditing.attrs).map(([key, value]) => [value, key])
     );
 
     // \Drupal\entity_embed\Form\EntityEmbedDialog returns data in keyed by
     // data-attributes used in view data. This converts data-attribute keys to
     // keys used in model.
-    const modelAttributes = Object.keys(attributes).reduce(
-      (result, attribute) => {
-        if (dataAttributeMapping[attribute]) {
-          result[dataAttributeMapping[attribute]] = attributes[attribute];
-        }
-        return result;
-      },
-      {},
+    const modelAttributes = Object.fromEntries(
+      Object.keys(dataAttributeMapping)
+        .filter((attribute) => attributes[attribute])
+        .map((attribute) => [dataAttributeMapping[attribute] ,attributes[attribute]])
     );
+
 
     model.change((writer) => {
       model.insertContent(createEntityEmbed(writer, modelAttributes));

@@ -1,0 +1,12 @@
+diff --git a/web/core/modules/file/src/Upload/FileUploadHandler.php b/web/core/modules/file/src/Upload/FileUploadHandler.php
+index 3406116d..adfc90ca 100644
+--- a/web/core/modules/file/src/Upload/FileUploadHandler.php
++++ b/web/core/modules/file/src/Upload/FileUploadHandler.php
+@@ -209,6 +209,7 @@ public function handleFileUpload(UploadedFileInterface $uploadedFile, array $val
+     $validators['file_validate_name_length'] = [];
+ 
+     // Call the validation functions specified by this function's caller.
++    $file->destination = $destination;
+     $errors = file_validate($file, $validators);
+     if (!empty($errors)) {
+       throw new FileValidationException('File validation failed', $filename, $errors);

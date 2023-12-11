@@ -1,6 +1,0 @@
-name: 'USPTO News Release'
-type: module
-description: 'USPTO News Release module holding News Release functionality.'
-core_version_requirement: ^9 || ^10
-package: '-- USPTO --'
-dependencies:

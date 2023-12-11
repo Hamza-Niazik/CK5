@@ -1,6 +1,6 @@
 import { Plugin, icons } from 'ckeditor5/src/core';
 import { isWidget, WidgetToolbarRepository } from 'ckeditor5/src/widget';
-import { ButtonView } from "ckeditor5/src/ui";
+import { ButtonView } from 'ckeditor5/src/ui';
 
 export default class EntityEmbedToolbar extends Plugin {
 
@@ -30,8 +30,8 @@ export default class EntityEmbedToolbar extends Plugin {
       })
 
       this.listenTo(buttonView, 'execute', (eventInfo) => {
-        let element = editor.model.document.selection.getSelectedElement();
-        let libraryURL = Drupal.url('entity-embed/dialog/' + options.format + '/' + element.getAttribute('drupalEntityEmbedButton'));
+        const element = editor.model.document.selection.getSelectedElement();
+        const libraryURL = Drupal.url('entity-embed/dialog/' + options.format + '/' + element.getAttribute('drupalEntityEmbedButton'));
 
         let existingValues = {};
 
@@ -56,6 +56,52 @@ export default class EntityEmbedToolbar extends Plugin {
 
       return buttonView;
     })
+
+    editor.ui.componentFactory.add('editEmbeddedEntity', (locale) => {
+      const button = new ButtonView(locale);
+      const element = editor.model.document.selection.getSelectedElement();
+      if (!element) {
+        return null;
+      }
+      if (!element.hasAttribute('drupalEntityEntityUuid')) {
+        console.warn(Drupal.t('Unable to create edit link. There must be a value for data-entity-uuid.'));
+        return null;
+      }
+      if (!element.hasAttribute('drupalEntityEntityType')) {
+        console.warn(Drupal.t('Unable to create edit link. There must be a value for data-entity-type.'));
+        return null;
+      }
+      const uuid = element.getAttribute('drupalEntityEntityUuid');
+      const type = element.getAttribute('drupalEntityEntityType');
+      const editUrl = Drupal.url(`entity-embed/edit-embedded/${type}/${uuid}`)
+
+      button.set({
+        isEnabled: true,
+        label: Drupal.t('Edit the embedded entity (opens in new tab)'),
+        icon: icons.cog,
+        tooltip: true,
+      });
+
+      // Ping the edit url and disable the button if the user does not have
+      // access. Because this is async, there's a moment where the button is
+      // clickable even if they don't have access, but the destination will
+      // remain inaccessible.
+      fetch(editUrl)
+        .then((res) => {
+          if (!res.ok) {
+            button.set({
+              label: Drupal.t(`You do not have the permissions needed to edit this ${type}.`),
+              isEnabled: false,
+            });
+          }
+      });
+
+      this.listenTo(button, 'execute', () => {
+        window.open(editUrl, '_blank');
+      });
+
+      return button;
+    });
   }
 
   /**
@@ -66,10 +112,11 @@ export default class EntityEmbedToolbar extends Plugin {
     if (!editor.plugins.has('WidgetToolbarRepository')) {
       return;
     }
-    const widgetToolbarRepository = editor.plugins.get('WidgetToolbarRepository')
+    const widgetToolbarRepository = editor.plugins.get(WidgetToolbarRepository);
 
     widgetToolbarRepository.register('entityEmbed', {
-      items: ['entityEmbedEdit'],
+      ariaLabel: Drupal.t('Entity Embed toolbar'),
+      items: ['entityEmbedEdit', 'entityEmbedLink', 'editEmbeddedEntity'],
       getRelatedElement(selection) {
         const viewElement = selection.getSelectedElement()
         if (!viewElement) {
